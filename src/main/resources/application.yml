@@ -1,0 +1,56 @@
+server:
+  port: 8080
+
+ribbon:
+  ServerListRefreshInterval: 1000
+
+endpoints:
+  health:
+    sensitive: false
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+
+logging:
+  level:
+    org.springframework.cloud.consul: DEBUG
+
+spring:
+  cloud:
+    consul:
+      discovery:
+        healthCheckPath: /health
+        healthCheckInterval: 15s
+        tags: urlprefix-miapc.com/,urlprefix-/rest/sayHi,urlprefix-/rest/sayBye,urlprefix-profile,urlprefix-/login
+        instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd'T'HH:mm:ss'Z'
+  datasource:
+    initial-size: 10
+    max-active: 200
+    max-idle: 100
+    min-idle: 10
+    test-on-borrow: true
+    test-on-return: true
+    test-while-idle: true
+    validation-query: SELECT 1
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      #hibernate.cache.region.factory_class: com.googlecode.hibernate.memcached.MemcachedRegionFactory
+      javax.persistence.sharedCache.mode: ENABLE_SELECTIVE
+      hibernate.cache.use_query_cache: true
+      hibernate.cache.use_second_level_cache: true
+      hibernate.cache.region_prefix: quality.cache.demo
+      hibernate.memcached.operationTimeout: 3000
+      hibernate.use_sql_comments: false
+      hibernate.format_sql: true
+      #hibernate.memcached.connectionFactory: BinaryConnectionFactory
+      #hibernate.memcached.memcacheClientFactory: net.rubyeye.xmemcached.utils.hibernate.XmemcachedClientFactory
+
+spring.cloud.config.discovery.enabled: true

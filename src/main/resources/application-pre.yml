@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://172.16.91.69:3306/test?useUnicode=true&amp;characterEncoding=utf-8
+    username: root
+    password: 123abc..
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    properties:
+      hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+      hibernate.cache.provider_class: org.hibernate.cache.EhCacheProvider
+      #hibernate.memcached.servers: 127.0.0.1:11211
+  cache:
+    memecache:
+      host: 127.0.0.1
+      port: 11211
